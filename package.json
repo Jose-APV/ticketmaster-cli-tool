@@ -1,0 +1,44 @@
+{
+  "name": "cs4220-midterm-project",
+  "version": "1.0.0",
+  "description": "CS4220 Midterm Project using Ticketmaster API",
+  "main": "cli.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/J-APV/cs4220-midterm-project.git"
+  },
+  "author": "Web Dev CS4220",
+  "Contributors": [
+    {
+      "name": "Jose Portillo Valencia"
+    },
+    {
+      "name": "Steven Chen"
+    },
+    {
+      "name": "Anthony Grande"
+    },
+    {
+      "name": "Ramon Ulloa"
+    },
+    {
+      "name": "Jose Luis Cortes"
+    },
+    {
+      "name": "Paulux Carillo"
+    }
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/J-APV/cs4220-midterm-project/"
+  },
+  "homepage": "https://github.com/J-APV/cs4220-midterm-project#readme",
+  "dependencies": {
+    "axios": "^1.8.3",
+    "dotenv": "^16.4.7",
+    "yargs": "^17.7.2"
+  }
+}
