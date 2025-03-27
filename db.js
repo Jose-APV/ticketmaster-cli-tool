@@ -1,7 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import url from 'url';
-
+/*
+    DO NOT PRESENT THIS
+*/
 // in ECMAScript Modules (ESM), __dirname is not available directly like in CommonJS
 // use 'url' and 'path' modules to achieve similar functionality
 const __filename = url.fileURLToPath(import.meta.url);
