@@ -3,7 +3,7 @@ import axios from 'axios';
 const ROOT_URL = 'https://app.ticketmaster.com/discovery/v2/events';
 
 //this is our api key for the ticketmaster api, failure to use in the api calls will result in an oauth error
-const apikey = 'uhCtjDZYA9fO2B7TVEDJ9ztNvNGyBxDG';
+const apikey = API_KEY;
 
 // https://app.ticketmaster.com/discovery/v2/events?apikey={apikey}&keyword={keyword}
 // keyword (string) - this is the keyword we will use for searching ticketmaster events
