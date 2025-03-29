@@ -1,25 +1,17 @@
 import { select, rawlist } from '@inquirer/prompts';
 
 import { searchEventsByKeyword, getEventDetails } from './api.js';
-import { insert, find } from './db.js';
-import fs from 'fs';
+import * as db from './db.js';
 
-const saveUniqueItem = (filename, item) => {
-    let items = [];
-    if (fs.existsSync(filename)) {
-        items = JSON.parse(fs.readFileSync(filename));
-    }
-    if (!items.some(existingItem => existingItem === item)) {
-        items.push(item);
-        fs.writeFileSync(filename, JSON.stringify(items, null, 2));
-    }
-}
 
 export const searchAndHandleResults = async (keyword) => {
     try {
         const results = await searchEventsByKeyword(keyword);
-
-        saveUniqueItem('search_history_keyword.json', keyword);
+        const keywordInDB = await db.find("search_history_keyword", {keyword: keyword});
+        // Checks if user has searched this in the past, if not, then insert into DB
+        if (keywordInDB.length === 0) {
+            await db.insert("search_history_keyword", {keyword: keyword}); // use DB functions
+        }
 
         const displayResults = results.map((result, index) => ({
             name: result.name || `Result ${index + 1}`,
@@ -29,15 +21,22 @@ export const searchAndHandleResults = async (keyword) => {
             message: 'Select a search result:',
             choices: displayResults
         });
-
-        saveUniqueItem('search_history_selection.json', selectedResultId);
-
+        
+        const selectionInDB = await db.find("search_history_selection", {eventId: selectedResultId});
+        // Check if user has selected this specific event in the past
+    
         const selectedResultDetails = await getEventDetails(selectedResultId);
+        if(selectionInDB.length === 0) {
+            await db.insert("search_history_selection", {eventId: selectedResultId, eventName: selectedResultDetails.name});
+        }
         console.log('Selected Result Details:', selectedResultDetails);
+
+        
     } catch (error) {
         console.error('Error during search and handling results:', error);
     }
 }
+
 
 // Keyword history prompts
 
@@ -58,7 +57,7 @@ const _keywordHistoryPrompt = async (keywords) => {
     });
 }
 
-export const keywordHistory = async (args) => {
+export const keywordHistory = async () => {
     // retrieve all keywords
     const keywordCollections = await db.find('search_history_keyword');
 
@@ -68,6 +67,6 @@ export const keywordHistory = async (args) => {
         return;
     }else{
         // redirect user to whatever the user selects
-        searchAndHandleResults({keyword: keywordSelected});
+        searchAndHandleResults(keywordSelected);
     }
 }
