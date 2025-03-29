@@ -15,7 +15,7 @@ export const searchEventsByKeyword = async (keyword) => {
 
         const response = await axios.get(keywordURL);
 
-        return response.data;
+        return response.data._embedded.events;
     }  
     catch (error) {
         throw new error(error.message);
@@ -33,7 +33,8 @@ export const getEventDetails = async (id) => {
 
         const response = await axios.get(eventDetailsURL);
 
-        return response.data;
+        return response.data._embedded.events[0];
+
     } 
     catch (error) {
         throw new error(error.message);
