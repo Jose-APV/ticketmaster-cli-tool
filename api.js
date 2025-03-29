@@ -15,7 +15,7 @@ export const searchEventsByKeyword = async (keyword) => {
 
         const response = await axios.get(keywordURL);
         
-        return response.data._embedded.events;
+        return response.data._embedded.events; // returns arrays of events
     }  
     catch (error) {
         throw error.message;

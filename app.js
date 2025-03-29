@@ -39,7 +39,6 @@ export const searchAndHandleResults = async (keyword) => {
     }
 }
 
-
 // Keyword history prompts
 
 /**
