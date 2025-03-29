@@ -7,10 +7,10 @@ import * as db from './db.js';
 export const searchAndHandleResults = async (keyword) => {
     try {
         const results = await searchEventsByKeyword(keyword);
-        const keywordInDB = await db.find("search_history_keyword", {keyword: keyword});
+        const keywordInDB = await db.find("search_history_keyword", {keyword: keyword.toLowerCase()});
         // Checks if user has searched this in the past, if not, then insert into DB
         if (keywordInDB.length === 0) {
-            await db.insert("search_history_keyword", {keyword: keyword}); // use DB functions
+            await db.insert("search_history_keyword", {keyword: keyword.toLowerCase()}); // use DB functions
         }
 
         const displayResults = results.map((result, index) => ({
