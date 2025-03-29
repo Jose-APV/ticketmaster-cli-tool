@@ -1,7 +1,7 @@
 import { select, rawlist } from '@inquirer/prompts';
 
-import { searchEventsByKeyword, getEventDetails } from './api';
-import db from './db.js';
+import { searchEventsByKeyword, getEventDetails } from './api.js';
+import { insert, find } from './db.js';
 import fs from 'fs';
 
 const saveUniqueItem = (filename, item) => {
@@ -40,7 +40,6 @@ export const searchAndHandleResults = async (keyword) => {
 }
 
 
-
 // Keyword history prompts
 
 /**
@@ -70,6 +69,6 @@ export const keywordHistory = async (args) => {
         return;
     }else{
         // redirect user to whatever the user selects
-        searchEvent({keyword: keywordSelected});
+        searchAndHandleResults({keyword: keywordSelected});
     }
 }

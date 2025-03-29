@@ -14,11 +14,11 @@ export const searchEventsByKeyword = async (keyword) => {
         const keywordURL = `${ROOT_URL}?apikey=${apikey}&keyword=${keyword}`;
 
         const response = await axios.get(keywordURL);
-
+        
         return response.data._embedded.events;
     }  
     catch (error) {
-        throw new error(error.message);
+        throw error.message;
     }
 
 };
@@ -30,13 +30,13 @@ export const searchEventsByKeyword = async (keyword) => {
 export const getEventDetails = async (id) => {
     try {
         const eventDetailsURL = `${ROOT_URL}/${id}?apikey=${apikey}`;
-
+        
         const response = await axios.get(eventDetailsURL);
 
-        return response.data._embedded.events[0];
+        return response.data;
 
     } 
     catch (error) {
-        throw new error(error.message);
+        throw error.message;
     }
 };
