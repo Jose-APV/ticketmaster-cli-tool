@@ -13,16 +13,6 @@ export const searchAndHandleResults = async (keyword) => {
             await db.insert("search_history_keyword", {keyword: keyword.toLowerCase()}); // use DB functions
         }
 
-         const displayResults = results.map((result, index) => {
-            const name = result.name || `Result ${index + 1}`;
-            const id = result.id;
-            const date = results.dates;
-            const url = results.url;
-            return `Name: ${name}, ID: ${id}, Date: ${date}, URL: ${url}`;
-        }).join('\n');
-
-        console.log('Search Results:\n' + displayResults);
-
         const choiceResults = results.map((result, index) => ({
             name: result.name || `Result ${index + 1}`,
             value: result.id
@@ -40,7 +30,11 @@ export const searchAndHandleResults = async (keyword) => {
         if(selectionInDB.length === 0) {
             await db.insert("search_history_selection", {eventId: selectedResultId, eventName: selectedResultDetails.name});
         }
-        console.log('Selected Result Details:', selectedResultDetails);
+        console.log('Selected Result Details:');
+        console.log(`Name: ${selectedResultDetails.name}`);
+        console.log(`ID: ${selectedResultDetails.id}`);
+        console.log(`Date: ${selectedResultDetails.dates}`);
+        console.log(`URL: ${selectedResultDetails.url}`);
 
         
     } catch (error) {
